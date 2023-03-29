@@ -20,14 +20,15 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.core.app.SharedElementCallback;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.google.samples.gridtopager.MainActivity;
-import com.google.samples.gridtopager.adapter.ImagePagerAdapter;
+import com.google.samples.gridtopager.adapter.GridAdapter;
 import com.google.samples.gridtopager.R;
 import java.util.List;
 import java.util.Map;
@@ -37,23 +38,23 @@ import java.util.Map;
  */
 public class ImagePagerFragment extends Fragment {
 
-  private ViewPager viewPager;
+  private RecyclerView viewPager;
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    viewPager = (ViewPager) inflater.inflate(R.layout.fragment_pager, container, false);
-    viewPager.setAdapter(new ImagePagerAdapter(this));
+    viewPager = (RecyclerView) inflater.inflate(R.layout.fragment_pager, container, false);
+    viewPager.setAdapter(new GridAdapter(this, viewPager));
     // Set the current position and add a listener that will update the selection coordinator when
     // paging the images.
-    viewPager.setCurrentItem(MainActivity.currentPosition);
-    viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+    //viewPager.setCurrentItem(MainActivity.currentPosition);
+    /*viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
       @Override
       public void onPageSelected(int position) {
         MainActivity.currentPosition = position;
       }
-    });
+    });*/
 
     prepareSharedElementTransition();
 
@@ -83,15 +84,24 @@ public class ImagePagerFragment extends Fragment {
             // visible). To locate the fragment, call instantiateItem with the selection position.
             // At this stage, the method will simply return the fragment at the position and will
             // not create a new one.
-            Fragment currentFragment = (Fragment) viewPager.getAdapter()
-                .instantiateItem(viewPager, MainActivity.currentPosition);
-            View view = currentFragment.getView();
-            if (view == null) {
-              return;
-            }
+           /* Fragment currentFragment = (Fragment) viewPager.getAdapter()
+                .instantiateItem(viewPager, MainActivity.currentPosition);*/
+            View item0 = ((GridAdapter.ImageViewHolder) viewPager.findViewHolderForAdapterPosition(MainActivity.currentPosition)).itemView;
+            View item1 = ((GridAdapter.ImageViewHolder) viewPager.findViewHolderForAdapterPosition(1)).itemView;
+            View item2 = ((GridAdapter.ImageViewHolder) viewPager.findViewHolderForAdapterPosition(2)).itemView;
+            View item3 = ((GridAdapter.ImageViewHolder) viewPager.findViewHolderForAdapterPosition(3)).itemView;
+
+
 
             // Map the first shared element name to the child ImageView.
-            sharedElements.put(names.get(0), view.findViewById(R.id.image));
+            for (String name : names){
+
+            }
+            sharedElements.put(names.get(0), item0.findViewById(R.id.card_image));
+           /* sharedElements.put(names.get(1), item1.findViewById(R.id.card_image));
+            sharedElements.put(names.get(2), item2.findViewById(R.id.card_image));
+            sharedElements.put(names.get(3), item3.findViewById(R.id.card_image));*/
+
           }
         });
   }

@@ -46,7 +46,7 @@ public class GridFragment extends Fragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     recyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_grid, container, false);
-    recyclerView.setAdapter(new GridAdapter(this));
+    recyclerView.setAdapter(new GridAdapter(this,recyclerView));
 
     prepareTransitions();
     postponeEnterTransition();

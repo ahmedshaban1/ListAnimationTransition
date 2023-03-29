@@ -25,5 +25,6 @@
     android:paddingStart="8dp"
     android:paddingEnd="8dp"
     android:scrollbars="vertical"
-    app:layoutManager="GridLayoutManager"
-    app:spanCount="@integer/grid_span_count"/>
+    android:orientation="horizontal"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+   />
